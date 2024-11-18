@@ -3,6 +3,7 @@ using Quartz.Impl;
 using Quarznetapplicxation.Jobs;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,6 +22,18 @@ namespace Quarznetapplicxation
         }
         //private void StartQuartzScheduler()
         //{
+        //    NameValueCollection props = new NameValueCollection
+        //    {
+        //        { "quartz.scheduler.instanceName", "MyScheduler" },
+        //        { "quartz.scheduler.instanceId", "AUTO" },
+        //        { "quartz.jobStore.type", "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz" },
+        //        { "quartz.jobStore.driverDelegateType", "Quartz.Impl.AdoJobStore.StdAdoDelegate, Quartz" },
+        //        { "quartz.jobStore.dataSource", "myDS" },
+        //        { "quartz.jobStore.tablePrefix", "QRTZ_" },
+        //        { "quartz.dataSource.myDS.connectionString", "Server = DESKTOP - J6SDVUR; Database = ForQuartz; User Id = sa; Password = focus" },
+        //        { "quartz.dataSource.myDS.provider", "MySql" }
+        //    };
+
         //    // Create a scheduler factory
         //    ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
 
@@ -31,18 +44,7 @@ namespace Quarznetapplicxation
         //    Scheduler.Start();
 
         //    // Define the job and tie it to the SampleJob class
-        //    IJobDetail job =JobBuilder.Create<Job>()
-        //        .WithIdentity("sampleJob", "defaultGroup")
-        //        .Build();
 
-        //    // Create a trigger to run every 10 seconds
-        //    ITrigger trigger = TriggerBuilder.Create()
-        //        .WithIdentity("sampleJob", "defaultGroup")
-        //        .StartNow()
-        //        .WithSimpleSchedule(x => x.WithIntervalInSeconds(10).RepeatForever())
-        //        .Build();
-
-        //    Scheduler.ScheduleJob(job, trigger).Wait();
         //}
     }
 }
