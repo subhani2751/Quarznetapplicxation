@@ -18,7 +18,7 @@ namespace Quarznetapplicxation.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            StartQuartzScheduler();
+            //StartQuartzScheduler();
             return View();
         }
         private void StartQuartzScheduler()
@@ -26,7 +26,7 @@ namespace Quarznetapplicxation.Controllers
             NameValueCollection props = new NameValueCollection
             {
                 { "quartz.serializer.type" , "json" },
-                { "quartz.scheduler.instanceName", "MyScheduler" },
+                { "quartz.scheduler.instanceName", $"MyScheduler_ForQuartz" },
                 { "quartz.scheduler.instanceId", "AUTO" },
                 { "quartz.jobStore.type", "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz" },
                 { "quartz.jobStore.driverDelegateType", "Quartz.Impl.AdoJobStore.StdAdoDelegate, Quartz" },
@@ -51,10 +51,10 @@ namespace Quarznetapplicxation.Controllers
             //Scheduler.UnscheduleJob(tigger.Key);
             //Scheduler.DeleteJob(new JobKey("sampleJob"));
 
-            //Scheduler.UnscheduleJob(new TriggerKey("sampleJob", "defaultGroup"));
-            //Scheduler.DeleteJob(new JobKey("sampleJob", "defaultGroup"));
-            //Scheduler.UnscheduleJob(new TriggerKey("sampleJob2", "defaultGroup2"));
-            //Scheduler.DeleteJob(new JobKey("sampleJob2", "defaultGroup2"));
+            Scheduler.UnscheduleJob(new TriggerKey("sampleJob", "defaultGroup"));
+            Scheduler.DeleteJob(new JobKey("sampleJob", "defaultGroup"));
+            Scheduler.UnscheduleJob(new TriggerKey("sampleJob2", "defaultGroup2"));
+            Scheduler.DeleteJob(new JobKey("sampleJob2", "defaultGroup2"));
 
             // Define the job and tie it to the SampleJob class
             IJobDetail job = JobBuilder.Create<Job>()

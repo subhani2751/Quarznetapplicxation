@@ -13,39 +13,45 @@ namespace Quarznetapplicxation.Jobs
     public class BackgroundTimer
     {
         private readonly Timer _timer;
-        public BackgroundTimer()
+        private readonly string _companyName;
+        //public BackgroundTimer(string company ="")
+        //{
+        //    _timer = new Timer(50000) { AutoReset = true };
+        //    _timer.Elapsed += timerElapsed;
+        //    _companyName= company;
+        //}
+        //private void timerElapsed(object sender, ElapsedEventArgs e)
+        //{
+        //    //string[] line = new string[] { DateTime.Now.ToString() };
+        //    //File.AppendAllLines(@"C:\Windows\Temp\BackgroudTimerfrom_Quartz.txt", line);
+        //    //string[]  line = new string[] { $"starting...{_companyName}+{DateTime.Now}" };
+        //    //File.AppendAllLines(@"C:\Windows\Temp\BackgroudTimerfrom_Quartz.txt", line);
+        //    NameValueCollection props = new NameValueCollection
+        //    {
+        //        { "quartz.serializer.type" , "json" },
+        //        { "quartz.scheduler.instanceName", "MyScheduler" },
+        //        { "quartz.scheduler.instanceId", "AUTO" },
+        //        { "quartz.jobStore.type", "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz" },
+        //        { "quartz.jobStore.driverDelegateType", "Quartz.Impl.AdoJobStore.StdAdoDelegate, Quartz" },
+        //        { "quartz.jobStore.dataSource", "ForQuartz" },
+        //        { "quartz.jobStore.tablePrefix", "QRTZ_" },
+        //        { "quartz.dataSource.ForQuartz.connectionString", "Server=DESKTOP-J6SDVUR;Database=ForQuartz;User Id=sa;Password=focus" },
+        //        { "quartz.dataSource.ForQuartz.provider", "SqlServer" },
+        //        { "quartz.jobStore.clustered", "false" }
+        //    };
+        //    ISchedulerFactory schedulerFactory = new StdSchedulerFactory(props);
+        //    IScheduler Scheduler = schedulerFactory.GetScheduler().Result;//.Result;
+        //    Scheduler.Start();
+        //}
+        public void Start(List<IScheduler> lstScheduler = null)
         {
-            _timer = new Timer(50000) { AutoReset = true };
-            _timer.Elapsed += timerElapsed;
-
-        }
-        private void timerElapsed(object sender, ElapsedEventArgs e)
-        {
-            string[] line = new string[] { DateTime.Now.ToString() };
-            File.AppendAllLines(@"C:\Windows\Temp\BackgroudTimerfrom_Quartz.txt", line);
-        }
-        public async void Start()
-        {
-            string[] line = new string[] {"starting..."};
-            File.AppendAllLines(@"C:\Windows\Temp\BackgroudTimerfrom_Quartz.txt", line);
+            
             _timer.Start();
-
-            NameValueCollection props = new NameValueCollection
+            if (lstScheduler != null) { lstScheduler = new List<IScheduler>(); }
+            foreach (IScheduler scheduler in lstScheduler)
             {
-                { "quartz.serializer.type" , "json" },
-                { "quartz.scheduler.instanceName", "MyScheduler" },
-                { "quartz.scheduler.instanceId", "AUTO" },
-                { "quartz.jobStore.type", "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz" },
-                { "quartz.jobStore.driverDelegateType", "Quartz.Impl.AdoJobStore.StdAdoDelegate, Quartz" },
-                { "quartz.jobStore.dataSource", "ForQuartz" },
-                { "quartz.jobStore.tablePrefix", "QRTZ_" },
-                { "quartz.dataSource.ForQuartz.connectionString", "Server=DESKTOP-J6SDVUR;Database=ForQuartz;User Id=sa;Password=focus" },
-                { "quartz.dataSource.ForQuartz.provider", "SqlServer" },
-                { "quartz.jobStore.clustered", "false" }
-            };
-            ISchedulerFactory schedulerFactory = new StdSchedulerFactory(props);
-            IScheduler Scheduler = schedulerFactory.GetScheduler().Result;//.Result;
-            await Scheduler.Start();
+                scheduler.Start();
+            }
             // IJobDetail job = JobBuilder.Create<Job>()
             //     .WithIdentity("sampleJob", "defaultGroup")
             //     .Build();
